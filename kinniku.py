@@ -87,6 +87,7 @@ class Kinniku(pygame.sprite.Sprite):
         
         # 敵通過（とりあえず）
         Enemy((500,400))
+        Enemy((1000,300))
     def update(self):
 
         # キー入力取得
