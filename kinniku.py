@@ -11,17 +11,17 @@ class PyAction:
     def __init__(self):
         pygame.init()
         screen = pygame.display.set_mode(SCR_RECT.size)
-        pygame.display.set_caption("‹Ø“÷ƒKƒ“ƒi[")
+        pygame.display.set_caption("ç­‹è‚‰ã‚¬ãƒ³ãƒŠãƒ¼")
         
-        # ‰æ‘œ‚Ìƒ[ƒh
-        Kinniku.left_image = load_image("python.gif", -1)                     # ¶Œü‚«
-        Kinniku.right_image = pygame.transform.flip(Kinniku.left_image, 1, 0)  # ‰EŒü‚«
-        Kinniku.right_image2 = load_image("kinniku.png", -1)  # ‚µ‚á‚ª‚İ
-        Kinniku.right_image3 = load_image("gunner.png", -1)  # \‚¦
-        Shot.image = load_image("shot.png",-1) # e’e
-        Enemy.image = load_image("enemy.png",-1) # “G
+        # ç”»åƒã®ãƒ­ãƒ¼ãƒ‰
+        Kinniku.left_image = load_image("python.gif", -1)                     # å·¦å‘ã
+        Kinniku.right_image = pygame.transform.flip(Kinniku.left_image, 1, 0)  # å³å‘ã
+        Kinniku.right_image2 = load_image("kinniku.png", -1)  # ã—ã‚ƒãŒã¿
+        Kinniku.right_image3 = load_image("gunner.png", -1)  # æ§‹ãˆ
+        Shot.image = load_image("shot.png",-1) # éŠƒå¼¾
+        Enemy.image = load_image("enemy.png",-1) # æ•µ
         
-        # ƒOƒ‹[ƒvì¬
+        # ã‚°ãƒ«ãƒ¼ãƒ—ä½œæˆ
         self.all = pygame.sprite.RenderUpdates()
         Enemies = pygame.sprite.Group()
         shots = pygame.sprite.Group()
@@ -31,7 +31,7 @@ class PyAction:
         Enemy.containers = self.all,Enemies
         Kinniku()
 
-        # ƒƒCƒ“ƒ‹[ƒv
+        # ãƒ¡ã‚¤ãƒ³ãƒ«ãƒ¼ãƒ—
         clock = pygame.time.Clock()
         while True:
             clock.tick(60)
@@ -69,10 +69,10 @@ def Kcollision_detection(Enemies, kinnikus):
 
 class Kinniku(pygame.sprite.Sprite):
 
-    MOVE_SPEED = 5.0  # ˆÚ“®‘¬“x
-    JUMP_SPEED = 8.0  # ƒWƒƒƒ“ƒv‚Ì‰‘¬“x
-    GRAVITY = 0.4     # d—Í‰Á‘¬“x
-    reload_time = 15  # e‚ÌƒŠƒ[ƒhŠÔ
+    MOVE_SPEED = 5.0  # ç§»å‹•é€Ÿåº¦
+    JUMP_SPEED = 8.0  # ã‚¸ãƒ£ãƒ³ãƒ—ã®åˆé€Ÿåº¦
+    GRAVITY = 0.4     # é‡åŠ›åŠ é€Ÿåº¦
+    reload_time = 15  # éŠƒã®ãƒªãƒ­ãƒ¼ãƒ‰æ™‚é–“
     
     def __init__(self):
         pygame.sprite.Sprite.__init__(self, self.containers)
@@ -81,24 +81,24 @@ class Kinniku(pygame.sprite.Sprite):
         self.rect.bottom = SCR_RECT.bottom
         self.reload_timer = 0
         
-        # •‚“®¬”“_‚ÌˆÊ’u‚Æ‘¬“x
+        # æµ®å‹•å°æ•°ç‚¹ã®ä½ç½®ã¨é€Ÿåº¦
         self.fpx = float(self.rect.x)
         self.fpy = float(self.rect.y)
         self.fpvx = 0.0
         self.fpvy = 0.0
         
-        # ’n–Ê‚É‚¢‚é‚©‚Ç‚¤‚©
+        # åœ°é¢ã«ã„ã‚‹ã‹ã©ã†ã‹
         self.on_floor = False
         
-        # “G’Ê‰ßi‚Æ‚è‚ ‚¦‚¸j
+        # æ•µé€šéï¼ˆã¨ã‚Šã‚ãˆãšï¼‰
         Enemy((500,400))
         Enemy((1000,300))
     def update(self):
 
-        # ƒL[“ü—Íæ“¾
+        # ã‚­ãƒ¼å…¥åŠ›å–å¾—
         pressed_keys = pygame.key.get_pressed()
 
-        # ¶‰Eã‰ºˆÚ“®
+        # å·¦å³ä¸Šä¸‹ç§»å‹•
         if pressed_keys[K_RIGHT]:
             self.image = self.right_image
             self.rect = self.image.get_rect()
@@ -117,7 +117,7 @@ class Kinniku(pygame.sprite.Sprite):
         else:
             self.fpvx = 0.0
         
-        # e‚ğŒ‚‚Â
+        # éŠƒã‚’æ’ƒã¤
         if pressed_keys[K_RSHIFT]:
         	self.image = self.right_image3
         	if self.reload_timer > 0:
@@ -126,21 +126,21 @@ class Kinniku(pygame.sprite.Sprite):
         		Shot(self.rect.center)
         		self.reload_timer = self.reload_time
 
-        # ƒWƒƒƒ“ƒv
+        # ã‚¸ãƒ£ãƒ³ãƒ—
         if pressed_keys[K_UP]:
             if self.on_floor:
                 self.fpvy = - self.JUMP_SPEED
                 self.on_floor = False
         
-        # ‘¬“x‚ğXV
+        # é€Ÿåº¦ã‚’æ›´æ–°
         if not self.on_floor:
             self.fpvy += self.GRAVITY
         
-        # •‚“®¬”“_‚ÌˆÊ’u‚ğXV
+        # æµ®å‹•å°æ•°ç‚¹ã®ä½ç½®ã‚’æ›´æ–°
         self.fpx += self.fpvx
         self.fpy += self.fpvy
         
-        # ’…’n‚µ‚½‚©’²‚×‚é
+        # ç€åœ°ã—ãŸã‹èª¿ã¹ã‚‹
         if self.fpy > SCR_RECT.height - self.rect.height and self.image != self.right_image2:
             self.fpy = SCR_RECT.height - self.rect.height
             self.fpvy = 0
@@ -151,7 +151,7 @@ class Kinniku(pygame.sprite.Sprite):
         	self.fpvy = 0
         	self.on_floor = True
         
-        # •‚“®¬”“_‚ÌˆÊ’u‚ğ®”À•W‚É–ß‚·
+        # æµ®å‹•å°æ•°ç‚¹ã®ä½ç½®ã‚’æ•´æ•°åº§æ¨™ã«æˆ»ã™
         self.rect.x = int(self.fpx)
         self.rect.y = int(self.fpy)
 
