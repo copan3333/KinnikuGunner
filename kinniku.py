@@ -25,7 +25,8 @@ class PyAction:
         self.all = pygame.sprite.RenderUpdates()
         Enemies = pygame.sprite.Group()
         shots = pygame.sprite.Group()
-        Kinniku.containers = self.all
+        kinnikus = pygame.sprite.Group()
+        Kinniku.containers = self.all,kinnikus
         Shot.containers = self.all,shots
         Enemy.containers = self.all,Enemies
         Kinniku()
@@ -36,6 +37,7 @@ class PyAction:
             clock.tick(60)
             self.update()
             collision_detection(shots, Enemies)
+            Kcollision_detection(Enemies, kinnikus)
             self.draw(screen)
             pygame.display.update()
             self.key_handler()
@@ -61,6 +63,9 @@ class PyAction:
 
 def collision_detection(shots, Enemies):
 	 enemy_collided = pygame.sprite.groupcollide(Enemies, shots, True, True)
+
+def Kcollision_detection(Enemies, kinnikus):
+	 enemy_collided = pygame.sprite.groupcollide(Enemies, kinnikus, False, True)
 
 class Kinniku(pygame.sprite.Sprite):
 
