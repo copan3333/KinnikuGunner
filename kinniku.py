@@ -20,6 +20,7 @@ class PyAction:
         Kinniku.right_image3 = load_image("gunner.png", -1)  # 構え
         Shot.image = load_image("shot.png",-1) # 銃弾
         Enemy.image = load_image("enemy.png",-1) # 敵
+        Gameover.image = load_image("gameover.png",-1) # ゲームオーバー
         
         # グループ作成
         self.all = pygame.sprite.RenderUpdates()
@@ -29,6 +30,7 @@ class PyAction:
         Kinniku.containers = self.all,kinnikus
         Shot.containers = self.all,shots
         Enemy.containers = self.all,Enemies
+        Gameover.containers = self.all
         Kinniku()
 
         # メインループ
@@ -65,7 +67,9 @@ def collision_detection(shots, Enemies):
 	 enemy_collided = pygame.sprite.groupcollide(Enemies, shots, True, True)
 
 def Kcollision_detection(Enemies, kinnikus):
-	 enemy_collided = pygame.sprite.groupcollide(Enemies, kinnikus, False, True)
+	 Kenemy_collided = pygame.sprite.groupcollide(Enemies, kinnikus, False, True)
+	 if Kenemy_collided:
+	 	Gameover((300,1000))
 
 class Kinniku(pygame.sprite.Sprite):
 
@@ -93,6 +97,7 @@ class Kinniku(pygame.sprite.Sprite):
         # 敵通過（とりあえず）
         Enemy((500,400))
         Enemy((1000,300))
+        
     def update(self):
 
         # キー入力取得
@@ -177,6 +182,15 @@ class Enemy(pygame.sprite.Sprite):
 	def update(self):
 		self.rect.move_ip(-self.speed, 0)
 
+class Gameover(pygame.sprite.Sprite):
+	speed = 2
+	def __init__(self, pos):
+		pygame.sprite.Sprite.__init__(self, self.containers)
+		self.rect = self.image.get_rect()
+		self.rect.center = pos
+		
+	def update(self):
+		self.rect.move_ip(0, -self.speed)
 def load_image(filename, colorkey=None):
     filename = os.path.join("data", filename)
     try:
