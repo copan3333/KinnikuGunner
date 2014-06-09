@@ -194,6 +194,7 @@ class Gameover(pygame.sprite.Sprite):
 		
 		if self.rect.top < 200:
 			pygame.time.wait(10000)
+			self.kill()
 		
 def load_image(filename, colorkey=None):
     filename = os.path.join("data", filename)
