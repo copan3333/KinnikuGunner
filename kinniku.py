@@ -191,6 +191,10 @@ class Gameover(pygame.sprite.Sprite):
 		
 	def update(self):
 		self.rect.move_ip(0, -self.speed)
+		
+		if self.rect.top < 200:
+			pygame.time.wait(10000)
+		
 def load_image(filename, colorkey=None):
     filename = os.path.join("data", filename)
     try:
