@@ -22,6 +22,7 @@ class PyAction:
         Enemy.image = load_image("enemy.png",-1) # 敵
         Enemy2.image = load_image("jelly.png",-1) # 敵2
         Gameover.image = load_image("gameover.png",-1) # ゲームオーバー
+        Clear.image = load_image("clear.png",-1) # クリア
         
         # グループ作成
         self.all = pygame.sprite.RenderUpdates()
@@ -34,6 +35,7 @@ class PyAction:
         Enemy.containers = self.all,Enemies
         Enemy2.containers = self.all,Enemies2
         Gameover.containers = self.all
+        Clear.containers = self.all
         Kinniku()
 
         # メインループ
@@ -117,6 +119,7 @@ class Kinniku(pygame.sprite.Sprite):
         Enemy((3700,400))
         Enemy((3900,300))
         Enemy((4200,200))
+        Clear((300,6000))
         
     def update(self):
 
@@ -225,7 +228,21 @@ class Gameover(pygame.sprite.Sprite):
 		if self.rect.top < 200:
 			pygame.time.wait(10000)
 			self.kill()
+
+class Clear(pygame.sprite.Sprite):
+	speed = 2
+	def __init__(self, pos):
+		pygame.sprite.Sprite.__init__(self, self.containers)
+		self.rect = self.image.get_rect()
+		self.rect.center = pos
 		
+	def update(self):
+		self.rect.move_ip(0, -self.speed)
+		
+		if self.rect.top < 200:
+			pygame.time.wait(10000)
+			self.kill()
+
 def load_image(filename, colorkey=None):
     filename = os.path.join("data", filename)
     try:
