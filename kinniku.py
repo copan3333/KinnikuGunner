@@ -20,16 +20,19 @@ class PyAction:
         Kinniku.right_image3 = load_image("gunner.png", -1)  # 構え
         Shot.image = load_image("shot.png",-1) # 銃弾
         Enemy.image = load_image("enemy.png",-1) # 敵
+        Enemy2.image = load_image("jelly.png",-1) # 敵2
         Gameover.image = load_image("gameover.png",-1) # ゲームオーバー
         
         # グループ作成
         self.all = pygame.sprite.RenderUpdates()
         Enemies = pygame.sprite.Group()
+        Enemies2 = pygame.sprite.Group()
         shots = pygame.sprite.Group()
         kinnikus = pygame.sprite.Group()
         Kinniku.containers = self.all,kinnikus
         Shot.containers = self.all,shots
         Enemy.containers = self.all,Enemies
+        Enemy2.containers = self.all,Enemies2
         Gameover.containers = self.all
         Kinniku()
 
@@ -39,6 +42,7 @@ class PyAction:
             clock.tick(60)
             self.update()
             collision_detection(shots, Enemies)
+            collision_detection2(shots, Enemies2)
             Kcollision_detection(Enemies, kinnikus)
             self.draw(screen)
             pygame.display.update()
@@ -65,6 +69,9 @@ class PyAction:
 
 def collision_detection(shots, Enemies):
 	 enemy_collided = pygame.sprite.groupcollide(Enemies, shots, True, True)
+
+def collision_detection2(shots, Enemies2):
+	 enemy_collided = pygame.sprite.groupcollide(Enemies2, shots, True, True)
 
 def Kcollision_detection(Enemies, kinnikus):
 	 Kenemy_collided = pygame.sprite.groupcollide(Enemies, kinnikus, False, True)
@@ -97,6 +104,19 @@ class Kinniku(pygame.sprite.Sprite):
         # 敵通過（とりあえず）
         Enemy((500,400))
         Enemy((1000,300))
+        Enemy2((1300,400))
+        Enemy2((1600,200))
+        Enemy2((2000,200))
+        Enemy((2100,200))
+        Enemy2((2200,100))
+        Enemy((2400,300))
+        Enemy2((3000,200))
+        Enemy((3200,200))
+        Enemy2((3400,400))
+        Enemy2((3500,200))
+        Enemy((3700,400))
+        Enemy((3900,300))
+        Enemy((4200,200))
         
     def update(self):
 
@@ -174,6 +194,16 @@ class Shot(pygame.sprite.Sprite):
 
 class Enemy(pygame.sprite.Sprite):
 	speed = 2
+	def __init__(self, pos):
+		pygame.sprite.Sprite.__init__(self, self.containers)
+		self.rect = self.image.get_rect()
+		self.rect.center = pos
+		
+	def update(self):
+		self.rect.move_ip(-self.speed, 0)
+
+class Enemy2(pygame.sprite.Sprite):
+	speed = 3
 	def __init__(self, pos):
 		pygame.sprite.Sprite.__init__(self, self.containers)
 		self.rect = self.image.get_rect()
